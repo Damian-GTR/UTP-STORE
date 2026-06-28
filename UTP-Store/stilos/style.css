@@ -1,0 +1,163 @@
+@charset "UTF-8";
+/*Parte	Significa
+all	afecta a todas las propiedades que cambien
+0.5s	dura medio segundo
+ease	la animación empieza lenta, acelera y termina lenta*/
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Times New Roman", Times, sans-serif;
+  background-color: #121212;
+}
+
+@keyframes crecer {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+header {
+  background-color: #121212;
+  position: sticky; /*mantener su flujo hast llegar al borde superior de la pantalla*/
+  top: 0; /*se pega arriba porq  el top = 0 pixel*/
+  z-index: 1000; /*siempre por encima del resto de contenido*/
+  animation: crecer 2s ease;
+}
+
+.utp-navbar .navbar-brand {
+  font-size: 30px;
+}
+.utp-navbar .navbar-nav {
+  gap: 30px;
+}
+.utp-navbar .navbar-nav a {
+  color: #E0E0E0;
+  border-radius: 5px;
+  transition: all 1s ease;
+  font-size: 17px;
+}
+.utp-navbar .navbar-nav a:hover {
+  background-color: #888888;
+  transform: scaleX(1.3); /* scale(x , y ) x ancho  , y alto*/
+}
+.utp-navbar .navbar-nav .nav-link.active {
+  background-color: #888888;
+  border-bottom: 2px solid #E0E0E0;
+  transform: scaleX(1.3);
+}
+
+.banner {
+  height: 250px;
+  background-image: url(../img/banner24.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -o-object-fit: contain;
+     object-fit: contain; /* img completa*/
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+.banner .content-banner {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.productos {
+  background-color: #121212;
+  color: #E0E0E0;
+  padding: 30px;
+}
+.productos h2 {
+  padding-top: 10px;
+  font-weight: bold;
+}
+.productos .card {
+  border: none;
+  border-radius: 10px;
+  background: #121212;
+  box-shadow: 0px 10px 30px rgb(0, 0, 0);
+  transition: all 1.5s ease;
+  padding: 10px;
+  /*border: $color2 solid 1px;*/
+}
+.productos .card .card-title {
+  color: #E0E0E0;
+}
+.productos .card img {
+  width: 100%;
+  height: 90px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.productos .card .card-title {
+  text-align: center;
+}
+.productos .card:hover {
+  transform: scale(1.1) translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.categorias {
+  background-color: #B0B0B0;
+  color: #E0E0E0;
+  padding: 30px;
+}
+.categorias h3 {
+  font-size: 28px;
+  font-weight: bold;
+}
+.categorias .card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background-color: #121212;
+  color: #E0E0E0;
+  border: none;
+  transition: all 1s ease;
+}
+.categorias .card a {
+  text-decoration: none;
+  color: #E0E0E0;
+  font-size: 15px;
+}
+.categorias .card:hover {
+  transform: scale(1.1) translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9);
+}
+
+/*
+@keyframes entrarAbajo{
+    0%{transform: translateY(800px); }
+    100%{transform: translateY(0); }
+}
+ animation: entrarAbajo 0.8s ease ;    
+*/
+.footer {
+  background-color: #121212;
+  color: #E0E0E0;
+  bottom: 0;
+}
+.footer h5 {
+  font-weight: bold;
+  font-size: 25px;
+}
+.footer p a {
+  text-decoration: none;
+  color: #E0E0E0;
+  font-size: 18px;
+  font-size: 18px;
+}/*# sourceMappingURL=style.css.map */

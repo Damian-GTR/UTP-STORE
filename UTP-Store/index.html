@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTP-Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="stilos/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" 
+    />
+
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark  utp-navbar">
+            <div class="container"> <!-- todo el contenido del navbar-->
+                <a class="navbar-brand" href="index.html">
+                    UTP-STORE
+                </a>
+
+                <!-- BOTÓN HAMBURGUESA   el   navbar-toggler" crea el button  -->
+                <!--navbar-toggler	estilo del botón
+                    data-bs-toggle="collapse"	activa el sistema ocultar/mostrar
+                    data-bs-target="#menu"	dice qué menú controla
+                    navbar-toggler-icon	dibuja el icono ☰-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span> <!--Este es solo el icono visual del botón.-->
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu">
+
+                    <div class="navbar-nav  ms-auto">
+                        <!-- el div es cuando dices q los elemntos van juntos como grupo  ossea navbar-nav-->
+                        <a class="nav-link  active" href="index.html">Inicio</a>
+                        <a class="nav-link " href="pages/Productos.html">Productos</a>
+                        <a class="nav-link" href="pages/Categorias.html">Categorias</a>
+                        <a class="nav-link" href="pages/Detalles.html">Detalles</a>
+                        <a class="nav-link" href="pages/Carrito.html">Carrito</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="banner">
+            <div class="content-banner">
+                <p> Encuentra útiles, libros y accesorios universitarios.</p>
+                <a class="btn btn-primary" href="pages/Productos.html">Ver Productos</a>
+            </div>
+        </section>
+
+
+        <section class="productos">
+            <div class="container">
+                <h2 class="text-center  mb-5">
+                    Productos mas Vendidos
+                </h2>
+
+                <div class="row g-5">
+                    <div class="col-lg-3 col-12 col-sm-6 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"> <i class="fa-solid fa-layer-group"> </i> Cuadernos</h5>
+                                <div class="row g-2">
+                                    <div class="col-6"><img src="img/cuaderno 2fondo.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno 2fondo.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno 2fondo.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno 2fondo.png" class="img-fluid"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-dark" href="pages/Detalles.html">
+                                        <i class="fa-solid fa-tags"></i>
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-12 col-sm-6 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"> <i class="fa-solid fa-pen"></i> Lapiceros</h5>
+                                <div class="row g-2">
+                                    <div class="col-6"><img src="img/lapiceros.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/lapiceros.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/lapiceros.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/lapiceros.png" class="img-fluid"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-dark" href="pages/Detalles.html">
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-12 col-sm-6 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"> <i class="fa-solid fa-calculator"></i> Calculadoras</h5>
+                                <div class="row g-2">
+                                    <div class="col-6"><img src="img/calculadora.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/calculadora.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/calculadora.png" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/calculadora.png" class="img-fluid"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-dark" href="pages/Detalles.html">
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-12 col-sm-6 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"> <i class="fa-solid fa-book"></i> Libros</h5>
+                                <div class="row g-2">
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-dark" href="pages/Detalles.html">
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-12 col-sm-6 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Egranpadoras</h5>
+                                <div class="row g-2">
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-dark" href="pages/Detalles.html">
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-12 col-sm-6 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Folders</h5>
+                                <div class="row g-2">
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-dark" href="pages/Detalles.html">
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-12 col-sm-6 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Laboratodios</h5>
+                                <div class="row g-2">
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-dark" href="pages/Detalles.html">
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-12 col-sm-6 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Laboratodios</h5>
+                                <div class="row g-2">
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                    <div class="col-6"><img src="img/cuaderno.jpg" class="img-fluid"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-dark" href="pages/Detalles.html">
+                                        Ver detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="categorias">
+            <div class="container">
+                <h3 class="mb-3 text-center">Categorías</h3>
+                <div class="row g-3">
+
+                    <div class=" col-12  col-md-4 col-lg-3">
+                        <div class="card text-center p-3 h-100">
+                            <i class="fa-solid fa-book fs-3"></i>
+                            <a href="#">Papelería y Cuadernos: </a>
+                        </div>
+                    </div>
+
+                    <div class=" col-12  col-md-4 col-lg-3">
+                        <div class="card text-center p-3 h-100">
+                            <i class="fa-solid fa-pen fs-3"></i>
+                            <a href="#">Escritura</a>
+                        </div>
+                    </div>
+
+                    <div class=" col-12  col-md-4 col-lg-3">
+                        <div class="card text-center p-3 h-100">
+                            <i class="fa-solid fa-oil-well fs-3"></i>
+                            <a href="#">Medición y Corte:</a>
+                        </div>
+                    </div>
+
+                    <div class=" col-12  col-md-4 col-lg-3">
+                        <div class="card text-center p-3 h-100">
+                            <i class="fa-solid fa-folder fs-3"></i>
+                            <a href="#">Organización y Archivo</a>
+                        </div>
+                    </div>
+
+                    <div class=" col-12  col-md-4 col-lg-3">
+                        <div class="card text-center p-3 h-100">
+                            <i class="fa-solid fa-calculator fs-3"></i>
+                            <a href="#">Accesorios de Estudio</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-3">
+                <div class=" col-12  col-sm-6 col-md-4 col-lg-4">
+                    <h5>Contactanos</h5>
+                    <p> <i class="fa-solid fa-location-dot"></i> Dirección: Av. Siempre Viva 123, Ciudad</p>
+                    <p> <i class="fa-solid fa-phone-volume"></i> Teléfono: +51 987 654 321</p>
+                    <p> <i class="fa-solid fa-envelope"></i> Email: andreelipa@example.com</p>
+                </div>
+                <div class=" col-12  col-sm-6 col-md-4 col-lg-4">
+                    <p class="text-center"><a href="pages/Carrito.html">Carrito</a></p>
+                    <p class="text-center"><a href="pages/Productos.html">Productos</a></p>
+                    <p class="text-center"><a href="pages/Detalles.html">Detalles</a></p>
+                    <p class="text-center"><a href="pages/Detalles.html">Categorias</a></p>
+                </div>
+                <div class=" col-12 col-sm-6 col-md-4 col-lg-4">
+                    <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Dolorum itaque distinctio ea tempora sint assumenda reiciendis
+                        esse recusandae vitae fugiat.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
