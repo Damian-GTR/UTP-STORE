@@ -105,6 +105,14 @@ header{
 }
 
 
+@mixin img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+
+}
+
+
 .productos{
     background-color:$color1;
     color: $color2;
@@ -112,15 +120,14 @@ header{
     h2{
         padding-top: 10px;
         font-weight: bold;
-
     }
     .card {
         border: none;
         border-radius: 10px;
         background: $color1;
         //box-shadow x , y difuminado
-        // box-shadow: [desplazamiento-x] [desplazamiento-y] [difuminado] [propagación] [color]
-        box-shadow: 0px 10px 30px rgba(0, 0, 0, 10);
+        // box-shadow: [desplazamiento-x] [desplazamiento-y] [30px nitida o borrosa ] [color de sombrra 80% de opacidad] 
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
         transition: all  1.5s ease;
         padding: 10px;
 
@@ -131,9 +138,7 @@ header{
         }
     
         img {
-            width: 100%;
-            height: 130px;
-            object-fit: contain;
+            @include img();
         }
         .card-title{
             text-align: center;
@@ -198,15 +203,117 @@ header{
 .footer{
     background-color: $color1;
     color: $color2;
-    padding: 20px;
+    padding: 18px;
     h5{
         font-weight: bold;
-        font-size: 25px
+        font-size: 23px
     }
     p{
+        margin-bottom: 5px;
         a{
             @include links();
             font-size: 18px;
         }
+    }
+}
+
+.pro-categoria {
+    padding: 20px;
+    background-color: $color1;
+   
+    border-bottom:  1px solid $color4;
+    a{
+        @include links();
+        font-size: 20px;
+        display:flex;
+        justify-content: center;
+
+    }
+    a:hover{
+        color  : $color5;
+    }
+}
+
+
+@mixin card {
+    border: 1px solid $color4;
+    border-radius: 10px;
+    background: $color1;
+    transition: all  1.5s ease;
+}
+.cuadernos {
+    padding: 30px;
+    h3{
+        color: $color2;
+    }
+    
+    .card{
+        padding: 0px  20px;
+         @include card();
+         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+        .card-body{
+            color: $color2;
+        }
+        img {
+            @include img();
+        }
+        .btn:hover{
+            background-color: $color2;
+            color: $color1;
+        }
+    }
+    .card:hover{   
+        transform: scale(1.1)  translateY(-10px); 
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+}
+
+
+.carpetas {
+
+    .card-grande{
+        background-color: $color1;
+        @include card();
+        color: $color2; 
+        padding: 10px;
+
+        .card-pequeño{
+            background: $color1;
+            border-radius: 0px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            transition: all  1.5s ease;
+
+            img{
+                    @include img();
+            }
+        
+        }
+        .card-pequeño:hover {
+            transform: scale(1.1)  translateY(-10px); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);    
+        }
+    }
+}
+
+.Oficina{
+    margin-bottom: 20px;
+    h3{
+        color: $color2;
+    }
+    .card1{
+        background-color: $color1;
+        border: 1px solid $color4;
+        @include centrado();
+        img{
+            @include img();
+            height: 200px;
+            
+        }
+    }
+    .card2{
+        background-color: $color1;
+        border: 1px solid $color4;
+        @include centrado();
+        
     }
 }
