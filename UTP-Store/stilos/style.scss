@@ -9,7 +9,6 @@ $color6: red;
 //tipo de letra
 $fuente: 'Times New Roman', Times, sans-serif;
 //variables de header
-$color-hover: blue;
 
 //categorias
 $letras: 15px;
@@ -276,6 +275,7 @@ header{
         @include card();
         color: $color2; 
         padding: 10px;
+        box-shadow:  0 10px 30px rgba(0, 0, 0, 0.8);
 
         .card-pequeño{
             background: $color1;
@@ -296,24 +296,76 @@ header{
 }
 
 .Oficina{
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     h3{
         color: $color2;
     }
     .card1{
         background-color: $color1;
         border: 1px solid $color4;
+        padding: 10px;
+        box-shadow:  0 10px 30px rgba(0, 0, 0, 0.8);
         @include centrado();
         img{
             @include img();
             height: 200px;
-            
         }
+        a{
+            @include links();
+            display: flex;
+            justify-content: center;
+
+        }
+        a:hover{
+            color: $color5;
+        }
+        
     }
     .card2{
         background-color: $color1;
         border: 1px solid $color4;
         @include centrado();
+        box-shadow:  0 10px 30px rgba(0, 0, 0, 0.8);
         
     }
+
+     a{
+            @include links();
+            display: flex;
+            justify-content: center;
+
+    }
+    a:hover{
+            color: $color5;
+    }
 }
+
+
+.detalles{
+    margin-bottom: 30px;
+    border-top: 1px solid $color4;
+    padding: 20px;
+
+    h3{
+        color: $color2;
+    }
+    
+    .card{
+        padding: 15px;
+        background-color: $color1;
+        color: $color2;
+        box-shadow:  0px  10px 30px rgba(0, 0, 0, 0.8);
+        p{
+            font-size: 20px;
+        }
+        h5{
+            font-size: 17px
+        }
+    }
+        img{
+          @include img();
+          height: 170px;
+        }        
+      
+}
+

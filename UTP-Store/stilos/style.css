@@ -236,6 +236,7 @@ header {
   transition: all 1.5s ease;
   color: #E0E0E0;
   padding: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 .carpetas .card-grande .card-pequeño {
   background: #121212;
@@ -255,7 +256,7 @@ header {
 }
 
 .Oficina {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .Oficina h3 {
   color: #E0E0E0;
@@ -263,6 +264,8 @@ header {
 .Oficina .card1 {
   background-color: #121212;
   border: 1px solid #444444;
+  padding: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -275,6 +278,16 @@ header {
      object-fit: contain;
   height: 200px;
 }
+.Oficina .card1 a {
+  text-decoration: none;
+  color: #E0E0E0;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+}
+.Oficina .card1 a:hover {
+  color: #888888;
+}
 .Oficina .card2 {
   background-color: #121212;
   border: 1px solid #444444;
@@ -282,4 +295,43 @@ header {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+.Oficina a {
+  text-decoration: none;
+  color: #E0E0E0;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+}
+.Oficina a:hover {
+  color: #888888;
+}
+
+.detalles {
+  margin-bottom: 30px;
+  border-top: 1px solid #444444;
+  padding: 20px;
+}
+.detalles h3 {
+  color: #E0E0E0;
+}
+.detalles .card {
+  padding: 15px;
+  background-color: #121212;
+  color: #E0E0E0;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+}
+.detalles .card p {
+  font-size: 20px;
+}
+.detalles .card h5 {
+  font-size: 17px;
+}
+.detalles img {
+  width: 100%;
+  height: 120px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 170px;
 }/*# sourceMappingURL=style.css.map */
