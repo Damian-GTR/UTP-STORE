@@ -93,8 +93,8 @@ header{
 
     .content-banner{
         @include centrado();
-        color: $color-letra;
-        font-size: 25px;
+        color: $color2;
+        font-size: 30px;
         font-weight: bold; //grosor de fuente  negrita
 
         .btn-primary{

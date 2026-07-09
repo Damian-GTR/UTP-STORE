@@ -1,0 +1,445 @@
+FLUJO DEL BACKEND - UTP-STORE
+============================
+
+Este documento explica cómo funciona el backend para cargar productos dinámicamente desde PostgreSQL.
+
+
+1. ESTRUCTURA DE ARCHIVOS
+--------------------------
+- db.js: Configuración de conexión a PostgreSQL
+- server.js: Servidor Express con rutas API
+- js/productos.js: JavaScript para Productos.html
+- js/detalles.js: JavaScript para Detalles.html
+
+
+2. db.js - CONEXIÓN A LA BASE DE DATOS
+---------------------------------------
+const { Pool } = require("pg");
+
+const pool = new Pool({
+    user: "postgres",
+    host: "localhost",
+    database: "utp_store",
+    password: "andree2020",
+    port: 5432,
+});
+
+module.exports = pool;
+
+EXPLICACIÓN:
+- Crea un "pool" de conexiones a PostgreSQL
+- Configura credenciales de acceso
+- Exporta el pool para usarlo en server.js
+
+
+3. server.js - SERVIDOR EXPRESS
+--------------------------------
+const express = require("express");
+const cors = require("cors");
+const pool = require("./db");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+EXPLICACIÓN:
+- express: Framework para crear servidor web
+- cors: Permite que el frontend acceda al backend (evita bloqueos de seguridad)
+- pool: Importa la conexión a PostgreSQL
+- app.use(cors()): Habilita CORS para permitir peticiones desde el navegador
+
+
+4. RUTAS DEL SERVIDOR
+----------------------
+
+RUTA 1: Obtener todos los productos
+------------------------------------
+app.get("/productos", async (req, res) => {
+    try {
+        const resultado = await pool.query("SELECT * FROM productos");
+        res.json(resultado.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error al obtener los productos");
+    }
+});
+
+EXPLICACIÓN:
+- GET /productos: Endpoint para obtener todos los productos
+- pool.query("SELECT * FROM productos"): Ejecuta consulta SQL
+- res.json(resultado.rows): Devuelve los productos en formato JSON
+- Si hay error, devuelve status 500
+
+
+RUTA 2: Obtener un producto por ID
+-----------------------------------
+app.get("/productos/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const resultado = await pool.query("SELECT * FROM productos WHERE id = $1", [id]);
+        if (resultado.rows.length === 0) {
+            res.status(404).send("Producto no encontrado");
+        } else {
+            res.json(resultado.rows[0]);
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error al obtener el producto");
+    }
+});
+
+EXPLICACIÓN:
+- GET /productos/:id: Endpoint para obtener un producto específico
+- req.params.id: Extrae el ID de la URL (ej: /productos/1 → id = "1")
+- $1: Parámetro en la consulta SQL (previene inyección SQL)
+- Si no encuentra el producto, devuelve 404
+- Si lo encuentra, devuelve el producto en JSON
+
+
+5. INICIAR EL SERVIDOR
+-----------------------
+const PORT = 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+});
+
+EXPLICACIÓN:
+- El servidor escucha en el puerto 3000
+- Cuando corre, se puede acceder en http://localhost:3000
+
+
+6. js/productos.js - FRONTEND PARA PRODUCTOS.HTML
+--------------------------------------------------
+fetch("http://localhost:3000/productos")
+    .then(response => response.json())
+    .then(productos => {
+        mostrarProductosCuadernos(productos, "Cuadernos y Papel", "contenedor-cuadernos");
+        mostrarProductosEscritura(productos, "Escritura", "contenedor-escritura");
+        mostrarProductosCarpetas(productos, "Carpetas y Organización", "contenedor-carpetas");
+        mostrarProductosOficina(productos, "Oficina", "contenedor-oficina");
+    })
+    .catch(error => console.error(error));
+
+EXPLICACIÓN:
+- fetch(): Hace petición HTTP al backend
+- http://localhost:3000/productos: URL del endpoint
+- response.json(): Convierte la respuesta a JSON
+- productos: Array con todos los productos de la base de datos
+- Cada función filtra por categoría y renderiza las tarjetas
+
+
+7. js/detalles.js - FRONTEND PARA DETALLES.HTML
+------------------------------------------------
+const urlParams = new URLSearchParams(window.location.search);
+const productoId = urlParams.get('id');
+
+EXPLICACIÓN:
+- Lee el ID de la URL (ej: Detalles.html?id=1)
+- productoId = "1"
+
+
+if (productoId) {
+    // Si hay ID, mostrar solo ese producto
+    fetch(`http://localhost:3000/productos/${productoId}`)
+        .then(response => response.json())
+        .then(producto => {
+            mostrarProductoIndividual(producto);
+        })
+        .catch(error => console.error(error));
+} else {
+    // Si no hay ID, mostrar todos los productos
+    fetch("http://localhost:3000/productos")
+        .then(response => response.json())
+        .then(productos => {
+            mostrarTodosLosProductos(productos);
+        })
+        .catch(error => console.error(error));
+}
+
+EXPLICACIÓN:
+- Si hay ID en URL → fetch a /productos/:id → muestra 1 producto
+- Si NO hay ID en URL → fetch a /productos → muestra todos los productos
+
+
+8. FLUJO COMPLETO - PRODUCTOS.HTML
+----------------------------------
+1. Usuario abre Productos.html
+2. El navegador carga js/productos.js
+3. productos.js hace fetch a http://localhost:3000/productos
+4. server.js recibe la petición GET /productos
+5. server.js consulta PostgreSQL: SELECT * FROM productos
+6. PostgreSQL devuelve los datos
+7. server.js devuelve JSON con los productos
+8. productos.js recibe el JSON
+9. productos.js filtra por categoría
+10. productos.js genera HTML dinámico con las tarjetas
+11. productos.js inyecta el HTML en los contenedores (contenedor-cuadernos, etc.)
+12. El navegador muestra los productos
+
+
+9. FLUJO COMPLETO - DETALLES.HTML (CON ID)
+-------------------------------------------
+1. Usuario hace clic en "Ver detalles" en Productos.html
+2. El enlace es: Detalles.html?id=1
+3. Usuario abre Detalles.html?id=1
+4. El navegador carga js/detalles.js
+5. detalles.js lee el ID de la URL: id = "1"
+6. detalles.js hace fetch a http://localhost:3000/productos/1
+7. server.js recibe la petición GET /productos/1
+8. server.js consulta PostgreSQL: SELECT * FROM productos WHERE id = 1
+9. PostgreSQL devuelve los datos del producto
+10. server.js devuelve JSON con el producto
+11. detalles.js recibe el JSON
+12. detalles.js genera HTML con la tarjeta del producto
+13. detalles.js inyecta el HTML en contenedor-detalles
+14. El navegador muestra el producto individual
+
+
+10. FLUJO COMPLETO - DETALLES.HTML (SIN ID)
+--------------------------------------------
+1. Usuario abre Detalles.html directamente (sin ?id=X)
+2. El navegador carga js/detalles.js
+3. detalles.js lee la URL: no hay ID
+4. detalles.js hace fetch a http://localhost:3000/productos
+5. server.js recibe la petición GET /productos
+6. server.js consulta PostgreSQL: SELECT * FROM productos
+7. PostgreSQL devuelve todos los productos
+8. server.js devuelve JSON con todos los productos
+9. detalles.js recibe el JSON
+10. detalles.js genera HTML con todas las tarjetas
+11. detalles.js inyecta el HTML en contenedor-detalles
+12. El navegador muestra todos los productos
+
+
+11. BASE DE DATOS - TABLA PRODUCTOS
+------------------------------------
+CREATE TABLE productos (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(255),
+    descripcion TEXT,
+    precio DECIMAL,
+    imagen VARCHAR(255),
+    categoria VARCHAR(255),
+    stock INTEGER
+);
+
+EXPLICACIÓN:
+- id: Identificador único (autoincremental)
+- nombre: Nombre del producto
+- descripcion: Descripción detallada
+- precio: Precio del producto
+- imagen: Ruta de la imagen (ej: "img/calculadora.png")
+- categoria: Categoría del producto
+- stock: Cantidad disponible
+
+
+12. RELACIÓN HTML ↔ JAVASCRIPT
+------------------------------
+HTML (Productos.html):
+<div class="row g-5" id="contenedor-cuadernos">
+</div>
+
+JavaScript (productos.js):
+const contenedor = document.getElementById("contenedor-cuadernos");
+contenedor.innerHTML = `<div class="card">...</div>`;
+
+EXPLICACIÓN:
+- El HTML tiene un contenedor con ID
+- El JavaScript busca ese ID
+- El JavaScript inyecta HTML dinámico dentro del contenedor
+
+
+13. IMÁGENES DINÁMICAS
+----------------------
+Base de datos:
+imagen: "img/calculadora.png"
+
+JavaScript:
+<img src="../${producto.imagen}" class="img-fluid">
+
+Resultado:
+<img src="../img/calculadora.png" class="img-fluid">
+
+EXPLICACIÓN:
+- La ruta de la imagen está en la base de datos
+- JavaScript inserta esa ruta en el HTML
+- El navegador carga la imagen desde esa ruta
+
+
+14. PARA EJECUTAR
+------------------
+1. Asegúrate de que PostgreSQL esté corriendo
+2. Inicia el servidor:
+   node server.js
+3. Abre Productos.html en el navegador
+4. Los productos se cargarán dinámicamente
+
+
+15. LOCALSTORAGE - CARRITO DE COMPRAS
+------------------------------------
+localStorage es una "base de datos" en el navegador que persiste datos.
+
+GUARDAR DATOS:
+localStorage.setItem('carrito', JSON.stringify(carrito));
+
+LEER DATOS:
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+COMUNICACIÓN ENTRE ARCHIVOS:
+- detalles.js: Guarda productos cuando haces clic en "Agregar al carrito"
+- carrito.js: Lee localStorage cuando abres Carrito.html
+- Los datos persisten aunque cierres el navegador
+
+
+16. js/detalles.js - AGREGAR AL CARRITO
+----------------------------------------
+function agregarAlCarrito(id, nombre, precio, imagen) {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    const productoExistente = carrito.find(p => p.id === id);
+
+    if (productoExistente) {
+        productoExistente.cantidad += 1;
+    } else {
+        carrito.push({
+            id: id,
+            nombre: nombre,
+            precio: precio,
+            imagen: imagen,
+            cantidad: 1
+        });
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    alert('Producto agregado al carrito');
+}
+
+EXPLICACIÓN:
+- Lee el carrito actual del localStorage
+- Si el producto ya existe → incrementa cantidad
+- Si no existe → agrega nuevo producto con cantidad = 1
+- Guarda el carrito actualizado en localStorage
+
+
+17. js/carrito.js - MOSTRAR CARRITO
+------------------------------------
+function mostrarCarrito() {
+    if (carrito.length === 0) {
+        mensajeCarritoVacio.classList.remove('d-none');
+        resumenCarrito.classList.add('d-none');
+        return;
+    }
+
+    mensajeCarritoVacio.classList.add('d-none');
+    resumenCarrito.classList.remove('d-none');
+
+    carrito.forEach((producto, index) => {
+        contenedorCarrito.innerHTML += `<div class="card">...</div>`;
+    });
+
+    calcularTotal();
+}
+
+EXPLICACIÓN:
+- Si carrito vacío → muestra mensaje, oculta resumen
+- Si carrito con productos → oculta mensaje, muestra resumen
+- Inyecta tarjetas HTML dinámicamente para cada producto
+- Calcula subtotal, IGV y total
+
+
+18. js/carrito.js - MODIFICAR CANTIDAD
+--------------------------------------
+function modificarCantidad(index, cambio) {
+    carrito[index].cantidad += cambio;
+
+    if (carrito[index].cantidad <= 0) {
+        carrito.splice(index, 1);
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+}
+
+EXPLICACIÓN:
+- Incrementa o decrementa cantidad del producto
+- Si cantidad <= 0 → elimina producto del carrito
+- Guarda cambios en localStorage
+- Actualiza la vista
+
+
+19. js/carrito.js - ELIMINAR PRODUCTO
+--------------------------------------
+function eliminarProducto(index) {
+    carrito.splice(index, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+}
+
+EXPLICACIÓN:
+- Elimina producto del array usando splice
+- Guarda cambios en localStorage
+- Actualiza la vista
+
+
+20. js/carrito.js - VACIAR CARRITO
+-----------------------------------
+function vaciarCarrito() {
+    carrito = [];
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+}
+
+EXPLICACIÓN:
+- Vacía el array del carrito
+- Guarda array vacío en localStorage
+- Actualiza la vista (muestra mensaje "carrito vacío")
+
+
+21. js/carrito.js - CALCULAR TOTAL
+-----------------------------------
+function calcularTotal() {
+    const subtotal = carrito.reduce((total, producto) => {
+        return total + (producto.precio * producto.cantidad);
+    }, 0);
+
+    const igv = subtotal * 0.18;
+    const total = subtotal + igv;
+
+    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('igv').textContent = `$${igv.toFixed(2)}`;
+    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+}
+
+EXPLICACIÓN:
+- reduce(): Suma (precio × cantidad) de todos los productos
+- Calcula IGV (18% del subtotal)
+- Total = subtotal + IGV
+- Actualiza los elementos HTML con los valores calculados
+
+
+22. FLUJO COMPLETO - CARRITO
+------------------------------
+1. Usuario hace clic en "Agregar al carrito" en Detalles.html
+2. detalles.js ejecuta agregarAlCarrito()
+3. detalles.js guarda producto en localStorage
+4. Usuario abre Carrito.html
+5. carrito.js lee localStorage
+6. carrito.js muestra productos en tarjetas
+7. carrito.js calcula subtotal, IGV y total
+8. Usuario puede modificar cantidad, eliminar o vaciar carrito
+9. Todos los cambios se guardan en localStorage
+
+
+23. RESUMEN
+-----------
+- db.js: Conecta a PostgreSQL
+- server.js: Crea API con Express
+- productos.js: Fetch productos y renderiza en Productos.html
+- detalles.js: Fetch producto por ID o todos, renderiza en Detalles.html, agrega al carrito
+- carrito.js: Lee localStorage, muestra carrito, calcula totales
+- localStorage: Persiste datos del carrito en el navegador
+- HTML: Tiene contenedores con IDs donde JavaScript inyecta contenido
+- Base de datos: Almacena productos con rutas de imágenes
+- CORS: Permite comunicación entre frontend y backend
