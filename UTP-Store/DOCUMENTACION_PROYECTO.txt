@@ -1,0 +1,192 @@
+DOCUMENTACIÓN DEL PROYECTO UTP-STORE
+=====================================
+
+1. DESCRIPCIÓN DEL PROYECTO
+---------------------------
+UTP-Store es una tienda en línea de útiles escolares y accesorios universitarios. 
+El proyecto permite a los usuarios navegar por productos, ver detalles, agregar 
+productos al carrito de compras y gestionar el pedido. Además, cuenta con un panel 
+de administración para agregar y eliminar productos de forma dinámica sin necesidad 
+de manipular directamente la base de datos.
+
+2. OBJETIVOS DEL PROYECTO
+--------------------------
+- Facilitar la compra de útiles escolares y accesorios universitarios
+- Proporcionar una interfaz intuitiva y fácil de usar
+- Permitir la gestión dinámica de productos mediante un panel de administración
+- Implementar un sistema de carrito de compras funcional
+- Demostrar el uso de tecnologías web modernas (HTML, CSS, JavaScript, Node.js, PostgreSQL)
+
+3. TECNOLOGÍAS UTILIZADAS
+-------------------------
+
+3.1. Frontend
+- HTML5: Estructura de las páginas web
+- CSS3 / SASS: Estilos y diseño responsivo
+- Bootstrap 5: Framework CSS para componentes y layout
+- JavaScript: Lógica dinámica del frontend
+- Font Awesome: Iconos
+
+3.2. Backend
+- Node.js: Entorno de ejecución JavaScript del lado del servidor
+- Express: Framework web para Node.js
+- PostgreSQL: Sistema de gestión de bases de datos relacional
+- pg: Biblioteca para conectar Node.js con PostgreSQL
+
+3.3. Herramientas de Desarrollo
+- Git: Control de versiones
+- GitHub: Repositorio remoto
+- VS Code: Editor de código
+- Dart SASS: Compilador de SASS a CSS
+- concurrently: Ejecución simultánea de múltiples comandos (SASS + servidor)
+
+4. ESTRUCTURA DEL PROYECTO
+--------------------------
+UTP-Store/
+├── index.html              (Página principal)
+├── pages/
+│   ├── Productos.html      (Catálogo de productos por categorías)
+│   ├── Detalles.html       (Detalles de productos individuales)
+│   ├── Carrito.html        (Carrito de compras)
+│   └── Admin.html          (Panel de administración)
+├── js/
+│   ├── productos.js        (Carga productos dinámicamente)
+│   ├── detalles.js         (Muestra detalles y agrega al carrito)
+│   ├── carrito.js          (Gestión del carrito con localStorage)
+│   └── admin.js            (Gestión de productos en admin)
+├── stilos/
+│   └── style.scss          (Estilos SASS)
+├── img/                    (Imágenes de productos)
+├── server.js               (Servidor backend con Express)
+├── db.js                   (Conexión a PostgreSQL)
+└── package.json            (Dependencias del proyecto)
+
+5. FUNCIONALIDADES DEL PROYECTO
+-------------------------------
+
+5.1. Navegación y Catálogo
+- Página principal con banner y categorías
+- Catálogo de productos organizados por categorías:
+  * Cuadernos y Papel
+  * Escritura
+  * Carpetas y Organización
+  * Oficina
+- Diseño responsivo adaptable a diferentes dispositivos
+
+5.2. Detalles de Productos
+- Vista individual de cada producto
+- Información detallada: nombre, descripción, precio, imagen
+- Botón "Agregar al carrito" en cada producto
+
+5.3. Carrito de Compras
+- Agregar productos al carrito
+- Modificar cantidad de productos (+/-)
+- Eliminar productos individuales
+- Vaciar el carrito completo
+- Cálculo automático de subtotal, IGV (18%) y total
+- Persistencia del carrito usando localStorage (no se pierde al recargar la página)
+
+5.4. Panel de Administración
+- Formulario para agregar nuevos productos:
+  * Nombre
+  * Descripción
+  * Precio
+  * Ruta de imagen
+  * Categoría
+  * Stock
+- Lista de productos existentes
+- Eliminar productos del catálogo
+- Los cambios se reflejan automáticamente en la base de datos y en el frontend
+
+6. BASE DE DATOS
+----------------
+Tabla: productos
+- id (SERIAL PRIMARY KEY): Identificador único autoincremental
+- nombre (VARCHAR(255)): Nombre del producto
+- descripcion (TEXT): Descripción detallada del producto
+- precio (DECIMAL): Precio del producto
+- imagen (VARCHAR(255)): Ruta de la imagen (ej: "img/calculadora.png")
+- categoria (VARCHAR(255)): Categoría del producto
+- stock (INTEGER): Cantidad disponible en inventario
+
+7. API REST (BACKEND)
+---------------------
+- GET /: Ruta de prueba (verifica conexión a PostgreSQL)
+- GET /productos: Obtiene todos los productos
+- GET /productos/:id: Obtiene un producto específico por ID
+- POST /productos: Agrega un nuevo producto
+- DELETE /productos/:id: Elimina un producto por ID
+
+8. CARACTERÍSTICAS TÉCNICAS
+----------------------------
+8.1. Diseño Responsivo
+- Adaptación a móviles, tablets y escritorio
+- Uso de Bootstrap grid system
+- Media queries CSS
+
+8.2. Estilos CSS
+- Uso de SASS para preprocesamiento de CSS
+- Variables para colores y estilos reutilizables
+- Nesting para organización del código
+- Transiciones y transformaciones CSS para efectos visuales
+- Prefijos de navegador para compatibilidad (-webkit-, -moz-)
+
+8.3. JavaScript
+- Fetch API para comunicación con el backend
+- localStorage para persistencia del carrito
+- Manipulación dinámica del DOM
+- Event listeners para interactividad
+
+8.4. Backend
+- Express para manejo de rutas y middleware
+- Consultas parametrizadas para prevenir SQL injection
+- Manejo de errores con try/catch
+- CORS habilitado para permitir peticiones desde el frontend
+
+9. FLUJO DE USUARIO
+-------------------
+1. Usuario abre index.html
+2. Navega a Productos.html para ver catálogo
+3. Selecciona un producto y va a Detalles.html
+4. Agrega productos al carrito desde Detalles.html
+5. Navega a Carrito.html para ver pedido
+6. Modifica cantidades o elimina productos
+7. (Opcional) Admin puede agregar/eliminar productos desde Admin.html
+
+10. COMPILACIÓN Y EJECUCIÓN
+----------------------------
+10.1. Instalación de dependencias
+npm install
+
+10.2. Instalación de SASS localmente en el proyecto
+npm install sass --save-dev
+
+10.3. Instalación de concurrently para ejecución simultánea
+npm install --save-dev concurrently
+
+10.4. Compilación de SASS
+sass --watch stilos/style.scss:stilos/style.css
+
+10.5. Ejecución del servidor backend
+node server.js
+
+10.6. Ejecución simultánea (SASS + servidor)
+npm run dev
+
+11. CONCLUSIONES
+-----------------
+UTP-Store es un proyecto completo de e-commerce que integra frontend y backend, 
+demostrando el uso de tecnologías web modernas. El sistema permite una gestión 
+dinámica de productos mediante un panel de administración, evitando la necesidad 
+de manipular directamente la base de datos. El carrito de compras implementa 
+persistencia con localStorage, mejorando la experiencia del usuario. El diseño 
+es responsivo y utiliza buenas prácticas de desarrollo web.
+
+12. FUTURAS MEJORAS
+-------------------
+- Sistema de autenticación de usuarios
+- Pasarela de pagos
+- Historial de pedidos
+- Búsqueda y filtros avanzados
+- Sistema de calificaciones y reseñas
+- Gestión de inventario automática
