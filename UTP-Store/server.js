@@ -45,6 +45,37 @@ app.get("/productos/:id", async (req, res) => {
     }
 });
 
+// Ruta para agregar un nuevo producto
+app.post("/productos", async (req, res) => {
+    try {
+        const { nombre, descripcion, precio, imagen, categoria, stock } = req.body;
+        const resultado = await pool.query(
+            "INSERT INTO productos (nombre, descripcion, precio, imagen, categoria, stock) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+            [nombre, descripcion, precio, imagen, categoria, stock]
+        );
+        res.status(201).json(resultado.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error al agregar el producto");
+    }
+});
+
+// Ruta para eliminar un producto
+app.delete("/productos/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const resultado = await pool.query("DELETE FROM productos WHERE id = $1 RETURNING *", [id]);
+        if (resultado.rows.length === 0) {
+            res.status(404).send("Producto no encontrado");
+        } else {
+            res.json({ mensaje: "Producto eliminado correctamente" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error al eliminar el producto");
+    }
+});
+
 const PORT = 3000;
 
 app.listen(PORT, () => {

@@ -213,26 +213,6 @@ EXPLICACIÓN:
 12. El navegador muestra todos los productos
 
 
-11. BASE DE DATOS - TABLA PRODUCTOS
-------------------------------------
-CREATE TABLE productos (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(255),
-    descripcion TEXT,
-    precio DECIMAL,
-    imagen VARCHAR(255),
-    categoria VARCHAR(255),
-    stock INTEGER
-);
-
-EXPLICACIÓN:
-- id: Identificador único (autoincremental)
-- nombre: Nombre del producto
-- descripcion: Descripción detallada
-- precio: Precio del producto
-- imagen: Ruta de la imagen (ej: "img/calculadora.png")
-- categoria: Categoría del producto
-- stock: Cantidad disponible
 
 
 12. RELACIÓN HTML ↔ JAVASCRIPT
